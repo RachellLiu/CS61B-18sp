@@ -83,8 +83,9 @@ public class LinkedListDeque<T> {
         }
         ListNode temp = sentinel;
         int i = 0;
-        while (i <= index){
+        while (i < index){
             temp = temp.next;
+            i += 1;
         }
         return temp.item;
     }
@@ -92,11 +93,11 @@ public class LinkedListDeque<T> {
         if (isEmpty() || index > size - 1){
             return null;
         }
-        return getRecursiveHelper(index, sentinel.next);
+        return getRecursiveHelper(index, sentinel);
     }
     private T getRecursiveHelper(int index, ListNode deque){
         if(index == 0){
-            return sentinel.next.item;
+            return deque.next.item;
         }
         return getRecursiveHelper(index - 1, deque.next);
     }
