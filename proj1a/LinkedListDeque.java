@@ -92,7 +92,7 @@ public class LinkedListDeque<T> {
         if (isEmpty() || index > size - 1){
             return null;
         }
-        return getRecursive(index, sentinel.next);
+        return getRecursiveHelper(index, sentinel.next);
     }
     private T getRecursiveHelper(int index, ListNode deque){
         if(index == 0){
