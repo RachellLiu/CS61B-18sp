@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
 
     /** Resizes down to required capacity. */
     private void resizeDown(int cap) {
-        if (cap < limitLength){
+        if (cap < limitLength) {
             return;
         }
         T[] a = (T []) new Object[cap];
@@ -40,7 +40,7 @@ public class ArrayDeque<T> {
             int tempLength2 = first + size - items.length;
             System.arraycopy(items, first, a, a.length / 2 - 1, tempLength);
             System.arraycopy(items, 0, a, (a.length / 2 - 1) + tempLength, tempLength2);
-        }else{
+        } else {
             System.arraycopy(items, first, a, a.length / 2 - 1, size);
         }
         items = a;
@@ -50,14 +50,14 @@ public class ArrayDeque<T> {
     }
 
     /** Helper methods. */
-    private int minusOne(int index){
-        if (index == 0){
+    private int minusOne(int index) {
+        if (index == 0) {
             return items.length - 1;
         }
         return index - 1;
     }
 
-    private int plusOne(int index){
+    private int plusOne(int index) {
         if (index == items.length - 1) {
             return 0;
         }
@@ -80,7 +80,7 @@ public class ArrayDeque<T> {
         if (size == items.length) {
             resize(size * 2);
         }
-        if (items[first] == null){
+        if (items[first] == null) {
             first = nextLast;
         }
         items[nextLast] = item;
