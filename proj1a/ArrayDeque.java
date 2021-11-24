@@ -25,7 +25,7 @@ public class ArrayDeque<T> {
         }
         items = a;
         nextFirst = minusOne(a.length / 2 - 1);
-        first = nextFirst;
+        first = plusOne(nextFirst);
         nextLast = plusOne(nextFirst + size);
     }
 
@@ -45,7 +45,7 @@ public class ArrayDeque<T> {
         }
         items = a;
         nextFirst = minusOne(a.length / 2 - 1);
-        first = nextFirst;
+        first = plusOne(nextFirst);
         nextLast = plusOne(nextFirst + size);
     }
 
@@ -69,6 +69,7 @@ public class ArrayDeque<T> {
         if (size == items.length) {
             resize(size * 2);
         }
+        first = nextFirst;
         items[nextFirst] = item;
         nextFirst = minusOne(nextFirst);
         size += 1;
@@ -78,6 +79,9 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * 2);
+        }
+        if (items[first] == null){
+            first = nextLast;
         }
         items[nextLast] = item;
         nextLast = plusOne(nextLast);
@@ -101,8 +105,8 @@ public class ArrayDeque<T> {
             System.out.println("null");
             return;
         }
-        for (int i = 0; i <= size; i++) {
-            System.out.print(items[i] + " ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(get(i) + " ");
         }
         System.out.println();
     }
@@ -115,7 +119,12 @@ public class ArrayDeque<T> {
         } else {
             T temp = items[nextFirst + 1];
             items[nextFirst + 1] = null;
+            first = plusOne(first);
+            nextFirst = plusOne(nextFirst);
             size -= 1;
+            if ((double) size / items.length < 0.25) {
+                resizeDown(items.length / 2);
+            }
             return temp;
         }
     }
@@ -128,7 +137,11 @@ public class ArrayDeque<T> {
         } else {
             T temp = items[nextLast - 1];
             items[nextLast - 1] = null;
+            nextLast = minusOne(nextLast);
             size -= 1;
+            if ((double) size / items.length < 0.25) {
+                resizeDown(items.length / 2);
+            }
             return temp;
         }
     }
@@ -140,6 +153,9 @@ public class ArrayDeque<T> {
         if (isEmpty() || index > (size - 1)) {
             return null;
         }
-        return items[index];
+        if (index + first < items.length) {
+            return items[first + index];
+        }
+        return items[first + index - items.length];
     }
 }
