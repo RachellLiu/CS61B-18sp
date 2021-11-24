@@ -118,7 +118,7 @@ public class ArrayDeque<T> {
             return null;
         } else {
             T temp = items[first];
-            items[nextFirst + 1] = null;
+            items[first] = null;
             first = plusOne(first);
             nextFirst = plusOne(nextFirst);
             size -= 1;
@@ -135,9 +135,9 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
+            nextLast = minusOne(nextLast);
             T temp = items[nextLast];
             items[nextLast] = null;
-            nextLast = minusOne(nextLast);
             size -= 1;
             if ((double) size / items.length < 0.25) {
                 resizeDown(items.length / 2);
